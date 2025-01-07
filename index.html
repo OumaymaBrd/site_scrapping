@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImmoData France - Données Immobilières</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 95%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+        header a:hover {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        #showcase {
+            min-height: 400px;
+            background: url('images/image.webp') no-repeat center center/cover;
+            text-align: center;
+            color: #ffffff;
+        }
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        #showcase p {
+            font-size: 20px;
+        }
+        #main {
+            padding: 20px;
+            background: #ffffff;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #35424a;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        footer {
+            padding: 20px;
+            margin-top: 20px;
+            color: #ffffff;
+            background-color: #e8491d;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">ImmoData</span> France</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="#home">Accueil</a></li>
+                    <li><a href="#data">Données</a></li>
+                    <li><a href="#about">À Propos</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="showcase">
+        <div class="container">
+            <h1 style="color: black;">Données Immobilières en France</h1>
+            <p style="color: black;">Explorez les tendances du marché immobilier français avec nos données détaillées et à jour.</p>
+        </div>
+    </section>
+
+    <section id="main">
+        <div class="container">
+            <h2>Dernières Transactions Immobilières</h2>
+            <table id="propertyData">
+                <thead>
+                    <tr>
+                        <th>Ville</th>
+                        <th>Code Postal</th>
+                        <th>Type de Bien</th>
+                        <th>Surface (m²)</th>
+                        <th>Prix de Vente (€)</th>
+                        <th>Date de Vente</th>
+                        <th>Genre Acheteur</th>
+                        <th>Âge Acheteur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les données seront insérées ici par JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p>ImmoData France, Copyright &copy; 2023</p>
+    </footer>
+
+    <script>
+        // Fonction pour générer des données aléatoires
+        function generateRandomData(count) {
+            const cities = ['Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Lille', 'Toulouse', 'Nantes', 'Strasbourg', 'Montpellier', 'Rennes'];
+            const propertyTypes = ['Appartement', 'Maison', 'Studio', 'Loft', 'Duplex'];
+            const genders = ['Homme', 'Femme'];
+            const data = [];
+
+            for (let i = 0; i < count; i++) {
+                const city = cities[Math.floor(Math.random() * cities.length)];
+                const zipCode = Math.floor(Math.random() * 90000) + 10000;
+                const type = propertyTypes[Math.floor(Math.random() * propertyTypes.length)];
+                const surface = Math.floor(Math.random() * 150) + 20;
+                const price = Math.floor(Math.random() * 500000) + 100000;
+                const date = new Date(2020 + Math.floor(Math.random() * 3), Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1);
+                const gender = genders[Math.floor(Math.random() * genders.length)];
+                const age = Math.floor(Math.random() * 50) + 25; // Âge entre 25 et 74 ans
+
+                data.push({
+                    city,
+                    zipCode,
+                    type,
+                    surface,
+                    price,
+                    date: date.toISOString().split('T')[0],
+                    gender,
+                    age
+                });
+            }
+
+            return data;
+        }
+
+        // Fonction pour remplir le tableau avec les données
+        function populateTable(data) {
+            const tableBody = document.querySelector("#propertyData tbody");
+            data.forEach(item => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = item.city;
+                row.insertCell(1).textContent = item.zipCode;
+                row.insertCell(2).textContent = item.type;
+                row.insertCell(3).textContent = item.surface;
+                row.insertCell(4).textContent = item.price.toLocaleString('fr-FR') + ' €';
+                row.insertCell(5).textContent = item.date;
+                row.insertCell(6).textContent = item.gender;
+                row.insertCell(7).textContent = item.age;
+            });
+        }
+
+        // Générer et afficher 50 entrées de données
+        const propertyData = generateRandomData(50);
+        populateTable(propertyData);
+    </script>
+</body>
+</html>
